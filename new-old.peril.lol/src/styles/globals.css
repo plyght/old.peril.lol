@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Core theme durations - reduced for mobile */
+  --theme-transition-duration: 400ms;
+  --animation-duration: 300ms;
+}
+
+/* View transition styles */
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-group(main) {
+    animation-duration: var(--animation-duration);
+  }
+
+  ::view-transition-old(main) {
+    animation-duration: var(--animation-duration);
+  }
+
+  ::view-transition-new(main) {
+    animation-duration: var(--animation-duration);
+  }
+}
+
+/* Theme transition */
+.theme-transition {
+  transition:
+    background-color var(--theme-transition-duration) ease,
+    color var(--theme-transition-duration) ease;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  img {
+    content-visibility: auto;
+  }
+
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+}

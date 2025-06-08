@@ -1,0 +1,110 @@
+---
+import { ViewTransitions } from 'astro:transitions';
+import Analytics from '@vercel/analytics/astro';
+import SpeedInsights from '@vercel/speed-insights/astro';
+const { title, description } = Astro.props;
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<meta name="color-scheme" content="dark light" />
+<link rel="icon" href="/images/pfp.png" />
+<meta name="generator" content={Astro.generator} />
+<meta
+  name="description"
+  content={description ||
+    "plyght's personal website - Student & Full Stack Developer in the DMV area. Passionate about coding, weightlifting, biking, physics, and computer engineering."}
+/>
+<title>{title}</title>
+
+<!-- Add View Transitions for smooth navigation -->
+<ViewTransitions fallback="swap" />
+
+<!-- Preload critical assets -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  href="/fonts/cohere/CohereHeadline-Regular.ttf"
+  as="font"
+  type="font/ttf"
+  crossorigin
+/>
+
+<!-- Preload banner image for LCP improvement -->
+<link rel="preload" href="/images/webp/banner_home_optimized.webp" as="image" type="image/webp" />
+
+<!-- Stylesheets with critical CSS inlined -->
+<link rel="stylesheet" href="/styles/reset.css" />
+<link
+  rel="preload"
+  href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap"
+  as="style"
+  onload="this.onload=null;this.rel='stylesheet'"
+/>
+<noscript>
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap"
+  />
+</noscript>
+<link rel="stylesheet" href="/styles/ibm-plex-mono.css" />
+<link rel="stylesheet" href="/styles/mono.css" />
+<link rel="stylesheet" href="/styles/animations.css" />
+
+<!-- Deferred non-critical CSS -->
+<link
+  rel="preload"
+  href="/styles/grain.css"
+  as="style"
+  onload="this.onload=null;this.rel='stylesheet'"
+/>
+<link
+  rel="preload"
+  href="/styles/cohere-font.css"
+  as="style"
+  onload="this.onload=null;this.rel='stylesheet'"
+/>
+<link
+  rel="preload"
+  href="/styles/index.css"
+  as="style"
+  onload="this.onload=null;this.rel='stylesheet'"
+/>
+<noscript>
+  <link rel="stylesheet" href="/styles/grain.css" />
+  <link rel="stylesheet" href="/styles/cohere-font.css" />
+  <link rel="stylesheet" href="/styles/index.css" />
+</noscript>
+
+<!-- Performance optimizations -->
+<script>
+  // Add 'js-enabled' class to html element for progressive enhancement
+  document.documentElement.classList.add('js-enabled');
+
+  // Disable animations on page load, then enable after page is loaded
+  document.documentElement.classList.add('no-animations');
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.documentElement.classList.remove('no-animations');
+    }, 300);
+  });
+
+  // Defer non-critical JavaScript
+  function loadDeferredScript(src) {
+    const script = document.createElement('script');
+    script.src = src;
+    script.defer = true;
+    document.body.appendChild(script);
+  }
+
+  // Load non-critical scripts after page load
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      // Add any client-side scripts here
+    }, 1000);
+  });
+</script>
+
+<Analytics />
+<SpeedInsights />
